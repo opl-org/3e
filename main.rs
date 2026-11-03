@@ -504,12 +504,10 @@ fn main() {
     let db_path = get_db_path();
     let mut active_db: Option<Database> = None;
 
-    if env::args().skip(1).any(|arg| {
-        matches!(
-            arg.as_str(),
-            "3e.db" | "./3e.db" | "eee.db" | "./eee.db"
-        )
-    }) {
+    if env::args()
+        .skip(1)
+        .any(|arg| matches!(arg.as_str(), "3e.db" | "./3e.db"))
+    {
         let db = Database::build_full();
         let _ = db.save(&db_path);
         active_db = Some(db);
@@ -554,7 +552,7 @@ fn main() {
             .or_else(|| raw_cmd.strip_prefix(".\\"))
             .unwrap_or(raw_cmd);
 
-        if matches!(clean_cmd, "3e.db" | "eee.db") {
+        if clean_cmd == "3e.db" {
             let db = match active_db.take() {
                 Some(mut existing) => {
                     existing.refresh_smart(&db_path);
