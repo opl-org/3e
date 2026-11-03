@@ -1,0 +1,12 @@
+[package]
+name = "eee"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "3e"
+path = "main.rs"
+
+[dependencies]
+strsim = "0.11"
+walkdir = "2.5"
